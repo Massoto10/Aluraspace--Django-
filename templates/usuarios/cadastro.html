@@ -1,0 +1,45 @@
+{% extends 'shared/base.html' %} 
+{% load static %}
+{% block content %}
+<!-- aqui temos o carregamento da base ( extends) e dos estáticos ( load ) alé do block content
+que é onde é armazenado o conteúdo do site-->
+
+            <section class="galeria" style="margin-left: 5em">
+                <form action="{% url 'cadastro' %}" method="POST">
+                    <!-- encaminha as informações dos formulários para o cadastro como POST-->
+                    
+                    {% csrf_token %}
+                    <!--A implementação de csrf_token ajuda a validar a autenticidade da requisição, aumentando a segurança da aplicação.-->
+                    
+                    <div class="row">
+                        {% for field in form.visible_fields %}
+                        <!--Faço através do for o laço de repetição necessário para inclusão do formulário-->
+
+                        <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
+                            <label for="{{ field.id_for_label }}" style="color:#D9D9D9; margin-bottom: 5px;">{{field.label}}</label>
+                            <!--ultilizando mais uma vez a lógica consigo alterar o label de cada campo com o label predefinido no usuario.forms-->
+                            
+                            {{ field }}
+                            <!--forcenemos aqui os campos em si-->
+
+                        </div>
+                        {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            {{error}}
+                        </div>
+                        <!--permitimos aqui a manifestação de possíveis erros nos campos, seja pelo required
+                        ou por qualquer outro método não satisfeito-->
+
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success col-12" style="padding: top 5px;">Cadastrar</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+<!--todo um processo de lógica ultilizado para incluir os alertas pré configurados em python ao front end-->
